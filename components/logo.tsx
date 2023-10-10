@@ -10,9 +10,9 @@ export function Logo() {
     <button>
        <Link href="/">
       {theme !== "dark" ? (
-        <img src="/logoDark.png" alt="Rising J" />
+        <img src="/logo-Dark.png" alt="Rising J" />
       ) : (
-        <img src="/logoLight.png" alt="Rising K" />
+        <img src="/logo-Light.png" alt="Rising J" />
       )}
       </Link>
     </button>
