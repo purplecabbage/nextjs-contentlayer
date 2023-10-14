@@ -1,9 +1,19 @@
 "use client"
 
+import { useState, useEffect } from 'react'
 import { useTheme } from "next-themes"
 
 export function ModeToggle() {
+  const [mounted, setMounted] = useState(false)
   const { setTheme, theme } = useTheme()
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  if (!mounted) {
+    return <button className="border rounded-md w-6 h-6 flex items-center justify-center">
+        </button>
+  }
 
   return (
     <button

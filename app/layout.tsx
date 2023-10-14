@@ -7,6 +7,8 @@ import { ModeToggle } from "@/components/mode-toggle"
 import { Logo } from "@/components/logo"
 import { allPages } from "@/.contentlayer/generated"
 
+
+
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata = {
@@ -19,6 +21,7 @@ interface RootLayoutProps {
 }
 
 export default function RootLayout({ children }: RootLayoutProps) {
+
   return (
     <html lang="en">
       <body
