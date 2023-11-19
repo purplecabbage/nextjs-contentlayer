@@ -5,7 +5,7 @@ const CONVERTKIT_FORM_ID = process.env.CONVERTKIT_FORM_ID
 const BASE_URL = 'https://api.convertkit.com/v3';
 
 
-export async function POST (req: NextRequest, res:NextResonse) {
+export async function POST (req: NextRequest, res:NextResponse) {
   const params = await req.json()
   console.log(params)
   const url = [BASE_URL, `forms`, CONVERTKIT_FORM_ID, 'subscribe'].join('/');
