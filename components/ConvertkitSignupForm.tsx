@@ -1,41 +1,41 @@
 "use client"
 
 import { FormEventHandler, useCallback, useState } from 'react';
- 
-const ConvertkitSignupForm: React.FC<
-  React.PropsWithChildren<{
-    formId: string;
-  }>
-> = ({ formId, children }) => {
-  const name = 'email';
+
+const ConvertkitSignupForm = ({ formId, children }) => {
+  const emailField = 'email';
+  const nameField = 'first_name';
   const [success, setSuccess] = useState<boolean | undefined>();
- 
+
   const onSubmit: FormEventHandler = useCallback(
     async (event) => {
       event.preventDefault();
- 
+
       const target = event.target as HTMLFormElement;
       const data = new FormData(target);
-      const email = data.get(name);
- 
+      const email = data.get(emailField);
+      const firstName = data.get(nameField);
+
       const body = JSON.stringify({
         formId,
         email,
+        firstName
       });
- 
+
       const headers = new Headers({
         'Content-Type': 'application/json; charset=utf-8',
       });
- 
+
       try {
-        await fetch(`/api/convertkit/subscribe`, {
+        const result = await fetch(`/api/subscribe`, {
           method: 'POST',
           mode: 'cors',
           cache: 'no-cache',
           headers,
           body,
         });
- 
+        const json = await result.json();
+        console.log(json);
         setSuccess(true);
       } catch {
         setSuccess(false);
@@ -43,41 +43,89 @@ const ConvertkitSignupForm: React.FC<
     },
     [formId]
   );
- 
+
   if (success === false) {
-    return <p>Apologies, an error occurred</p>;
+    return (
+      <div className='h-48'>
+        <p>Apologies, an error occurred</p>
+      </div>
+    );
   }
- 
+
   if (success) {
-    return <p>You&apos;re in! Thank you for subscribing.</p>;
+    return (
+      <div className='h-48 p-10 text-lg'>
+        <p>You&apos;re in! Thank you for subscribing. Now check your email to confirm your subscription.</p>
+      </div>
+    );
   }
- 
+
   return (
     <>
+      <div className="pt-12">
+        <p className={'mt-2 text-center text-lg md:text-lg col-span-3'}>
+            Never miss a beat. Subscribe to the newsletter for infrequent updates
+        </p>
+        </div>
       <form
         target="_blank"
-        className={`space-around flex w-full flex-grow justify-center`}
+        className={`space-around border-1 flex flex-grow justify-center items-center`}
         onSubmit={onSubmit}
       >
-        <input
-          type="email"
-          className="TextInput w-full !rounded-tr-none !rounded-br-none border-r-transparent py-1 text-sm hover:border-r-transparent md:w-80 md:text-base"
-          name={name}
-          aria-label="Your email address"
-          placeholder="your@email.com"
-          required
-        />
- 
-        <button className="Button min-w-[6rem] rounded-tl-none rounded-bl-none text-sm md:text-base">
-          {children ?? 'Sign up'}
-        </button>
+
+        <div className="space-y-8">
+          <div className="border-b border-gray-900/10 pb-12">
+            <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+              <div className="sm:col-span-4">
+                <label htmlFor="first-name" className="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-100">
+                  First name
+                </label>
+                <div className="mt-2">
+                  <input
+                    type="text"
+                    name={nameField}
+                    id="first-name"
+                    placeholder='preferred name'
+                    autoComplete="given-name"
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  />
+                </div>
+              </div>
+
+              <div className="sm:col-span-4">
+                <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-100">
+                  Email address
+                </label>
+                <div className="mt-2">
+                  <input
+                    id="email"
+                    name={emailField}
+                    type="email"
+                    placeholder="me@mysite.com"
+                    autoComplete="email"
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  />
+                </div>
+              </div>
+
+              <div className="mt-6 flex items-center justify-end gap-x-6">
+                <button type="submit"
+                  className="rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                >Sign Up</button>
+              </div>
+            </div>
+          </div>
+        </div>
       </form>
- 
+
+      {/* <p className={'mt-2 text-center text-sm md:text-xs'}>
+        Subscribe to the newsletter for infrequent updates
+      </p> */}
       <p className={'mt-2 text-center text-sm md:text-xs'}>
-        Subscribe to our newsletter to receive updates
+        <i>We respect your privacy. Unsubscribe at any time.</i>
       </p>
     </>
   );
 };
- 
+
 export default ConvertkitSignupForm;

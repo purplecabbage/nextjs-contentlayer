@@ -12,8 +12,9 @@ export default function AuthButton() {
         );
     }
     return (
-        <button className="btn" onClick={() => signIn()}>
-        Sign in
-        </button>
+        <></>
+        // <button className="btn" onClick={() => signIn()}>
+        // Sign in
+        // </button>
     );
 }

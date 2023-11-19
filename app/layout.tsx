@@ -25,32 +25,32 @@ interface RootLayoutProps {
 
 export default async function RootLayout({ children }: RootLayoutProps) {
 
-  const session = await getServerSession()
+  // const session = await getServerSession()
   return (
     <html lang="en">
       <body
-        className={`antialiased min-h-screen bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-50 ${inter.className}`}
+        className={`antialiased min-h-screen bg-slate-200 dark:bg-slate-900 text-slate-900 dark:text-slate-50 ${inter.className}`}
       >
-        <SessionProvider session={session}>
+        {/* <SessionProvider session={session}> */}
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <div className="max-w-4xl mx-auto py-10 px-4">
+          <div className="py-10">
             <header>
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between px-20">
                 <Logo />
-                <nav className="ml-auto mr-10 text-sm font-medium space-x-6">
+                <nav className="mr-10 text-sm font-medium space-x-6">
                  {allPages.map((page) => (
                   <Link key={page.slug} href={page.slugAsParams}>{page.title}</Link>
                 ))}
                 </nav>
                 <ModeToggle />
-                <AuthButton />
+                {/* <AuthButton /> */}
               </div>
             </header>
             <main>{children}</main>
           </div>
           <Analytics />
         </ThemeProvider>
-        </SessionProvider>
+        {/* </SessionProvider> */}
       </body>
     </html>
   )
