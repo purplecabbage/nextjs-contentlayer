@@ -2,13 +2,14 @@ import Link from "next/link"
 import "./globals.css"
 import { Inter } from "next/font/google"
 import { ThemeProvider } from "@/components/theme-provider"
-import { Analytics } from "@/components/analytics"
+// import { Analytics } from "@/components/analytics"
 import { ModeToggle } from "@/components/mode-toggle"
 import { Logo } from "@/components/logo"
 import { allPages } from "@/.contentlayer/generated"
 import { getServerSession } from "next-auth"
 import SessionProvider from '../components/SessionProvider'
 import AuthButton from "@/components/AuthButton"
+import { Analytics } from '@vercel/analytics/react';
 
 
 
