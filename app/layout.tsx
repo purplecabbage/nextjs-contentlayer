@@ -35,7 +35,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <div className="py-10">
             <header>
-              <div className="flex items-center justify-between px-20">
+              <div className="flex items-center justify-between px-5 sm:px-20">
                 <Logo />
                 <nav className="mr-10 text-sm font-medium space-x-6">
                  {allPages.map((page) => (
