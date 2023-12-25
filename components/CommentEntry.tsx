@@ -9,7 +9,7 @@ import { useCallback, useState } from 'react';
 // import { Button } from "@/components/ui/button"
 
 
-export default function CommentEntry() {
+export default async function CommentEntry() {
 
   const [success, setSuccess] = useState<boolean | undefined>();
   
