@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { headers } from "next/headers";
-import redis from "../../lib/redis";
+// import redis from "../../lib/redis";
+const redis = null
 
 export async function GET(_req: NextRequest, _res: NextResponse) {
   if (!redis) {
