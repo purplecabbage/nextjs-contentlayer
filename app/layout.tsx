@@ -10,7 +10,7 @@ import { getServerSession } from "next-auth"
 import SessionProvider from '../components/SessionProvider'
 import AuthButton from "@/components/AuthButton"
 import { Analytics } from '@vercel/analytics/react';
-
+import ConvertkitSignupForm from "@/components/ConvertkitSignupForm"
 
 
 const inter = Inter({ subsets: ["latin"] })
@@ -38,10 +38,9 @@ export default async function RootLayout({ children }: RootLayoutProps) {
             <header>
               <div className="flex items-center justify-between px-5 sm:px-20">
                 <Logo />
-                <nav className="mr-10 text-sm font-medium space-x-6">
-                 {allPages.map((page) => (
-                  <Link key={page.slug} href={page.slugAsParams}>{page.title}</Link>
-                ))}
+                <nav className="mr-10 text-sm font-medium space-x-6 flex md:flex md:flex-grow flex-row justify-end">
+                 {/* {allPages.map((page) => ( ))} */}
+                  <Link href={'/about'}>About</Link>
                 </nav>
                 <ModeToggle />
                 {/* <AuthButton /> */}
@@ -50,6 +49,9 @@ export default async function RootLayout({ children }: RootLayoutProps) {
             <main>{children}</main>
           </div>
           <Analytics />
+          <div className='bg-indigo-200 dark:bg-indigo-950 min-w-full mt-20 px-5 sm:px-20'>
+        <ConvertkitSignupForm></ConvertkitSignupForm>
+      </div>
         </ThemeProvider>
         {/* </SessionProvider> */}
       </body>

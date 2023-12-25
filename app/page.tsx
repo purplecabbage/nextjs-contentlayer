@@ -16,10 +16,6 @@ export default function Home() {
       <article key='comingSoon' className='m-auto'>
         <img src='/RisingJ-1.png' alt='Rising J Upcoming' className='comingSoon'/>
       </article>
-      <br/>
-      <div className='bg-indigo-200 dark:bg-indigo-950 min-w-full mt-20 px-5 sm:px-20'>
-        <ConvertkitSignupForm></ConvertkitSignupForm>
-      </div>
     </div>
   )
 }
