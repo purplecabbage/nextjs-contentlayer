@@ -11,7 +11,7 @@ export default function Component() {
       <div className="container mx-auto px-4 md:px-6 grid gap-y-8">
         <h2 className="text-3xl font-bold tracking-tight text-center text-gray-900 dark:text-white sm:text-4xl hover:font-extrabold transition-font-weight">I Already Know</h2>
         <p className="text-gray-700 dark:text-gray-300 max-w-2xl mx-auto mt-4 min-h-64">
-        Just released! Listen to the new single "I Already Know" on your favorite platform.
+        Just released! Listen to the new single &quot;I Already Know&quot; on your favorite platform.
         </p>
         <p></p>
       </div>
