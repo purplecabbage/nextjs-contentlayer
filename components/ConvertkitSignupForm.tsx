@@ -64,7 +64,7 @@ const ConvertkitSignupForm = ({ formId, children }) => {
     <>
       <div className="pt-12">
         <p className={'mt-2 text-center text-lg md:text-lg col-span-3'}>
-            Never miss a beat. Subscribe to the newsletter for infrequent updates
+            Never miss a beat. Subscribe to the newsletter for semi-frequent updates
         </p>
         </div>
       <form

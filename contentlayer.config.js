@@ -9,7 +9,7 @@ const computedFields = {
   slugAsParams: {
     type: "string",
     resolve: (doc) => doc._raw.flattenedPath.split("/").slice(1).join("/"),
-  },
+  }
 }
 
 export const Page = defineDocumentType(() => ({
@@ -48,7 +48,52 @@ export const Post = defineDocumentType(() => ({
   computedFields,
 }))
 
+export const Song = defineDocumentType(() => ({
+  name: "Song",
+  filePathPattern: `songs/**/*.json`,
+  contentType: "data",
+  fields: {
+    title: {
+      type: "string",
+      required: true,
+    },
+    description: {
+      type: "string",
+    },
+    date: {
+      type: "date",
+      required: true,
+    },
+    visibility: {
+      type: "enum",
+      options: ['private', 'protected', 'public'],
+      default: 'private',
+    },
+    appleMusicLink: {
+      type: "string",
+      required: false
+    },
+    spotifyLink: {
+      type: "string",
+      required: false
+    },  
+    amazonMusicLink: {
+      type: "string",
+      required: false
+    },
+    streamUrl: {
+      type: "string",
+      required: false
+    },
+    discoTrackId: {
+      type: "string",
+      required: false
+    },
+  },
+  computedFields,
+}))
+
 export default makeSource({
   contentDirPath: "./content",
-  documentTypes: [Post, Page],
+  documentTypes: [Post, Page, Song],
 })

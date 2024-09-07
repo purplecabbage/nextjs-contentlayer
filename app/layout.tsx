@@ -11,6 +11,7 @@ import SessionProvider from '../components/SessionProvider'
 import AuthButton from "@/components/AuthButton"
 import { Analytics } from '@vercel/analytics/react';
 import ConvertkitSignupForm from "@/components/ConvertkitSignupForm"
+import Footer from "@/components/footer"
 
 
 const inter = Inter({ subsets: ["latin"] })
@@ -52,6 +53,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
           <div className='bg-indigo-200 dark:bg-indigo-950 min-w-full mt-20 px-5 sm:px-20'>
         <ConvertkitSignupForm></ConvertkitSignupForm>
       </div>
+      <Footer></Footer>
         </ThemeProvider>
         {/* </SessionProvider> */}
       </body>

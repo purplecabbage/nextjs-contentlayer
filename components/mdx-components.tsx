@@ -1,8 +1,9 @@
 import Image from "next/image"
+import Link from "next/link"
 import { useMDXComponent } from "next-contentlayer/hooks"
 
 const components = {
-  Image,
+  Image, Link
 }
 
 interface MdxProps {
