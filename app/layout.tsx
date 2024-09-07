@@ -12,7 +12,7 @@ import AuthButton from "@/components/AuthButton"
 import { Analytics } from '@vercel/analytics/react';
 import ConvertkitSignupForm from "@/components/ConvertkitSignupForm"
 import Footer from "@/components/footer"
-
+import SocialLinks from "@/components/social-links"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -39,11 +39,16 @@ export default async function RootLayout({ children }: RootLayoutProps) {
             <header>
               <div className="flex items-center justify-between px-5 sm:px-20">
                 <Logo />
+                
                 <nav className="mr-10 text-sm font-medium space-x-6 flex md:flex md:flex-grow flex-row justify-end">
                  {/* {allPages.map((page) => ( ))} */}
+                 
                   <Link href={'/about'}>About</Link>
+                  <SocialLinks />
                 </nav>
+                
                 <ModeToggle />
+                
                 {/* <AuthButton /> */}
               </div>
             </header>
