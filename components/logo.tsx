@@ -3,7 +3,6 @@
 import Link from "next/link"
 import { useState, useEffect } from 'react'
 import { useTheme } from "next-themes"
-import Image from "next/image"
 
 export function Logo() {
   const [mounted, setMounted] = useState(false)
@@ -20,9 +19,9 @@ export function Logo() {
     <button className='logo'>
        <Link href="/" >
       {theme == "dark" ? (
-        <Image src="/logo-Light.png" alt="Rising J"></Image>
+        <img src="/logo-Light.png" alt="Rising J"></img>
       ) : (
-        <Image src="/logo-Dark.png" alt="Rising J"></Image>
+        <img src="/logo-Dark.png" alt="Rising J"></img>
       )}
       </Link>
     </button>
