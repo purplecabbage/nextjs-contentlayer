@@ -15,9 +15,8 @@ async function getPostFromParams(params: PostProps["params"]) {
   const post = allPosts.find((post) => post.slugAsParams === slug)
 
   if (!post) {
-    null
+    return null
   }
-
   return post
 }
 
@@ -44,9 +43,12 @@ export async function generateStaticParams(): Promise<PostProps["params"][]> {
 
 export default async function PostPage({ params }: PostProps) {
   const post = await getPostFromParams(params)
-
+  console.log("Post not found ", allPosts)
   if (!post) {
-    notFound()
+    
+    return allPosts.map((post) => (
+      <p>{post.title}</p>
+    ))
   }
 
   return (

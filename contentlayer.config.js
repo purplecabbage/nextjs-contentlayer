@@ -44,6 +44,35 @@ export const Post = defineDocumentType(() => ({
       type: "date",
       required: true,
     },
+    coverImage: {
+      type: "string",
+      required: false,
+    }
+  },
+  computedFields,
+}))
+
+export const PressRelease = defineDocumentType(() => ({
+  name: "Press",
+  filePathPattern: `pr/**/*.mdx`,
+  contentType: "mdx",
+  fields: {
+    title: {
+      type: "string",
+      required: true,
+    },
+    description: {
+      type: "string",
+      required: false
+    },
+    date: {
+      type: "date",
+      required: true,
+    },
+    coverImage: {
+      type: "string",
+      required: false,
+    }
   },
   computedFields,
 }))
@@ -95,5 +124,5 @@ export const Song = defineDocumentType(() => ({
 
 export default makeSource({
   contentDirPath: "./content",
-  documentTypes: [Post, Page, Song],
+  documentTypes: [Post, Page, Song, PressRelease],
 })

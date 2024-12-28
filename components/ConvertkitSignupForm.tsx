@@ -2,7 +2,7 @@
 
 import { FormEventHandler, useCallback, useState } from 'react';
 
-const ConvertkitSignupForm = ({ formId, children }) => {
+const ConvertkitSignupForm = ({ formId }) => {
   const emailField = 'email';
   const nameField = 'first_name';
   const [success, setSuccess] = useState<boolean | undefined>();
@@ -30,7 +30,7 @@ const ConvertkitSignupForm = ({ formId, children }) => {
         const result = await fetch(`/api/subscribe`, {
           method: 'POST',
           mode: 'cors',
-          cache: 'no-cache',
+          cache: 'no-cache', 
           headers,
           body,
         });
@@ -62,7 +62,7 @@ const ConvertkitSignupForm = ({ formId, children }) => {
 
   return (
     <>
-      <div className="pt-12">
+      <div className="pt-2">
         <p className={'mt-2 text-center text-lg md:text-lg col-span-3'}>
             Never miss a beat. Subscribe to the newsletter for semi-frequent updates
         </p>
@@ -72,15 +72,14 @@ const ConvertkitSignupForm = ({ formId, children }) => {
         className={`space-around border-1 flex flex-grow justify-center items-center`}
         onSubmit={onSubmit}
       >
-
-        <div className="space-y-8">
+        <div className="space-y-2">
           <div className="border-b border-gray-900/10 pb-12">
-            <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+            <div className="mt-2 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
               <div className="sm:col-span-4">
                 <label htmlFor="first-name" className="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-100">
                   First name
                 </label>
-                <div className="mt-2">
+                <div className="mt-1">
                   <input
                     type="text"
                     name={nameField}
@@ -96,7 +95,7 @@ const ConvertkitSignupForm = ({ formId, children }) => {
                 <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-100">
                   Email address
                 </label>
-                <div className="mt-2">
+                <div className="mt-1">
                   <input
                     id="email"
                     name={emailField}
@@ -118,10 +117,7 @@ const ConvertkitSignupForm = ({ formId, children }) => {
         </div>
       </form>
 
-      {/* <p className={'mt-2 text-center text-sm md:text-xs'}>
-        Subscribe to the newsletter for infrequent updates
-      </p> */}
-      <p className={'mt-2 text-center text-sm md:text-xs'}>
+      <p className={'mt-1 text-center text-sm md:text-xs'}>
         <i>We respect your privacy. Unsubscribe at any time.</i>
       </p>
     </>

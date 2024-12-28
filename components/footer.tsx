@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 
-export default async function Footer() {
+export default function Footer() {
 
   const currentYear = new Date().getFullYear();
   const copyrightDate = `${currentYear}`

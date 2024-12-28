@@ -6,10 +6,17 @@ const nextConfig = {
   swcMinify: true,
   typescript: {
     ignoreBuildErrors: true,
-  }
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'images.pexels.com',
+        port: '',
+        pathname: '/photos/**',
+      },
+    ],
+  },
 };
-
-
-module.exports = nextConfig;
 
 module.exports = withContentlayer(nextConfig);

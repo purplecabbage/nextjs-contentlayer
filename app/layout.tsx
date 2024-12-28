@@ -1,3 +1,4 @@
+
 import Link from "next/link"
 import "./globals.css"
 import { Inter } from "next/font/google"
@@ -12,6 +13,7 @@ import AuthButton from "@/components/AuthButton"
 import { Analytics } from '@vercel/analytics/react';
 import ConvertkitSignupForm from "@/components/ConvertkitSignupForm"
 import Footer from "@/components/footer"
+import Header from "@/components/header"
 import SocialLinks from "@/components/social-links"
 
 const inter = Inter({ subsets: ["latin"] })
@@ -35,30 +37,15 @@ export default async function RootLayout({ children }: RootLayoutProps) {
       >
         {/* <SessionProvider session={session}> */}
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <div className="py-10">
-            <header>
-              <div className="flex items-center justify-between px-5 sm:px-20">
-                <Logo />
-                
-                <nav className="mr-10 text-sm font-medium space-x-6 flex md:flex md:flex-grow flex-row justify-end">
-                 {/* {allPages.map((page) => ( ))} */}
-                 
-                  <Link href={'/about'}>About</Link>
-                  <SocialLinks />
-                </nav>
-                
-                <ModeToggle />
-                
-                {/* <AuthButton /> */}
-              </div>
-            </header>
-            <main>{children}</main>
+          <div className="py-2">
+            <Header/>
+            <main>{children}</main> 
           </div>
           <Analytics />
           <div className='bg-indigo-200 dark:bg-indigo-950 min-w-full mt-20 px-5 sm:px-20'>
-        <ConvertkitSignupForm></ConvertkitSignupForm>
-      </div>
-      <Footer></Footer>
+            <ConvertkitSignupForm formId="" />
+          </div>
+          <Footer />
         </ThemeProvider>
         {/* </SessionProvider> */}
       </body>
