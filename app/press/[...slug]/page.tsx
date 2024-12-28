@@ -47,7 +47,7 @@ export default async function PostPage({ params }: PostProps) {
   if (!press) {
     
     return allPresses.map((press) => (
-      <p>{press.title}</p>
+      <p key={press._id}>{press.title}</p>
     ))
   }
 

@@ -47,7 +47,7 @@ export default async function PostPage({ params }: PostProps) {
   if (!post) {
     
     return allPosts.map((post) => (
-      <p>{post.title}</p>
+      <p key={post._id}>{post.title}</p>
     ))
   }
 
