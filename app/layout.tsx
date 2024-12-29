@@ -37,10 +37,9 @@ export default async function RootLayout({ children }: RootLayoutProps) {
       >
         {/* <SessionProvider session={session}> */}
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <div className="py-2">
-            <Header/>
-            <main>{children}</main> 
-          </div>
+          
+          <Header/>
+          <main>{children}</main> 
           <Analytics />
           <div className='bg-indigo-200 dark:bg-indigo-950 min-w-full mt-20 px-5 sm:px-20'>
             <ConvertkitSignupForm formId="" />

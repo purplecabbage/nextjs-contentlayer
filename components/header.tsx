@@ -7,10 +7,9 @@ import SocialLinks from '@/components/social-links';
 
 export default function Header() {
   return (
-    <header className="bg-gray-900/5">
+    <header className="z-50 bg-white/20 backdrop-blur-md dark:bg-gray-900/50 fixed top-0 left-0 right-0">
       <div className="max-w-screen-xl flex items-center justify-between mx-auto p-4">
         <Logo />
-        
         <nav className="mr-10 font-medium space-x-6 flex flex-row">
           {/* {allPages.map((page) => ( ))} */}
           <SocialLinks />
