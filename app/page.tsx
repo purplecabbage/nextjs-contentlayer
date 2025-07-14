@@ -7,7 +7,7 @@ import Image from 'next/image'
 
 
 export default function Home() {
-  const song = allSongs.find((song) => song.slugAsParams === 'i-already-know')
+  const song = allSongs.find((song) => song.slugAsParams === 'beside-me')
   const post = allPosts.find((post) => post.title === 'Music is Never Done')
 
   if (!song) {
@@ -20,7 +20,7 @@ export default function Home() {
   return (
     <div className="min-w-full">
       {/* <HeroBanner /> */}
-      <article className="py-12 min-w-full px-5 sm:px-20 bg-fixed bg-cover bg-center h-screen"
+      <article className="py-12 min-w-full px-5 sm:px-20 bg-fixed bg-center"
       style={{  
         backgroundColor: 'rgba(0, 0, 0, 0.5)',
         backgroundImage: "url(" + post?.coverImage + ")",
@@ -44,7 +44,7 @@ export default function Home() {
         </div>
       </article>
 
-      <hr className="border-t-2 m-1 border-slate-200 dark:border-slate-800" />
+      {/* <hr className="border-t-2 m-1 border-slate-200 dark:border-slate-800" /> */}
 
       <article className="py-4 prose dark:prose-invert min-w-full px-5 sm:px-20">
         <p>Streaming now</p>

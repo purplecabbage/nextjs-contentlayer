@@ -42,6 +42,7 @@ export async function generateStaticParams(): Promise<PostProps["params"][]> {
 }
 
 export default async function PostPage({ params }: PostProps) {
+  // console.log('params = ', params)
   const press = await getPressFromParams(params)
   console.log("Post not found ", allPresses)
   if (!press) {
@@ -52,7 +53,7 @@ export default async function PostPage({ params }: PostProps) {
   }
 
   return (
-    <article className="py-6 prose dark:prose-invert min-w-full px-5 sm:px-20">
+    <article className="py-20 prose dark:prose-invert min-w-full px-5 sm:px-20">
       <h1 className="text-xxl">{press.title}</h1>
       {press.description && (
         <p className="text-xl mt-0 text-slate-700 dark:text-slate-200">

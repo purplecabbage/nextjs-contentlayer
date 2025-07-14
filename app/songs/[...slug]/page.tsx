@@ -50,7 +50,7 @@ export default async function SongPage({ params }: { params: { slug: string[] } 
   }
 
   return (
-    <article className="py-6 prose dark:prose-invert min-w-full px-5 sm:px-20">
+    <article className="py-20 prose dark:prose-invert min-w-full px-5 sm:px-20">
       <h1 className="mb-2">{song.title}</h1>
       {song.description && (
         <p className="text-xl mt-0 text-slate-700 dark:text-slate-200">
