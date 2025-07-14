@@ -52,7 +52,7 @@ export const Post = defineDocumentType(() => ({
   computedFields,
 }))
 
-export const PressRelease = defineDocumentType(() => ({
+export const Press = defineDocumentType(() => ({
   name: "Press",
   filePathPattern: `pr/**/*.mdx`,
   contentType: "mdx",
@@ -124,5 +124,5 @@ export const Song = defineDocumentType(() => ({
 
 export default makeSource({
   contentDirPath: "./content",
-  documentTypes: [Post, Page, Song, PressRelease],
+  documentTypes: [Post, Page, Song, Press],
 })

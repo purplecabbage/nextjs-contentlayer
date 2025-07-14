@@ -43,9 +43,7 @@ export async function generateStaticParams(): Promise<PostProps["params"][]> {
 
 export default async function PostPage({ params }: PostProps) {
   const post = await getPostFromParams(params)
-  console.log("Post not found ", allPosts)
   if (!post) {
-    
     return allPosts.map((post) => (
       <p key={post._id}>{post.title}</p>
     ))

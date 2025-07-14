@@ -35,7 +35,7 @@ const ConvertkitSignupForm = ({ formId }) => {
           body,
         });
         const json = await result.json();
-        console.log(json);
+        // console.log(json);
         setSuccess(true);
       } catch {
         setSuccess(false);

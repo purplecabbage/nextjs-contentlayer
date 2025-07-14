@@ -11,13 +11,10 @@ interface PressProps {
 }
 
 async function getPressFromParams(params: PressProps["params"]) {
+  
   const slug = params?.slug?.join("/")
-  const press = allPresses.find((press) => press.slugAsParams === slug)
-
-  if (!press) {
-    return null
-  }
-  return press
+  // console.log('allPresses = ', allPresses.map((press) => press.slugAsParams))
+  return allPresses.find((press) => press.slugAsParams == slug)
 }
 
 export async function generateMetadata({
@@ -35,16 +32,16 @@ export async function generateMetadata({
   }
 }
 
-export async function generateStaticParams(): Promise<PostProps["params"][]> {
+export async function generateStaticParams(): Promise<PressProps["params"][]> {
   return allPresses.map((press) => ({
     slug: press.slugAsParams.split("/"),
   }))
 }
 
-export default async function PostPage({ params }: PostProps) {
-  // console.log('params = ', params)
+export default async function PressPage({ params }: PressProps) {
+  console.log('params = ', params)
   const press = await getPressFromParams(params)
-  console.log("Post not found ", allPresses)
+  console.log("Post not found ", allPresses.length)
   if (!press) {
     
     return allPresses.map((press) => (
@@ -60,9 +57,7 @@ export default async function PostPage({ params }: PostProps) {
           {press.description}
         </p>
       )}
-      here comes the body
       <Mdx code={press.body.code} />
-      there it goes
     </article>
   )
 }
