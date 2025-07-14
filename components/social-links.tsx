@@ -52,7 +52,7 @@ export default function Component() {
       </Link> */}
       <Link
         target="_blank"
-        href="https://youtube.com"
+        href="https://www.youtube.com/@RisingJMusic"
         className="rounded-md w-7 h-7 flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary transition-colors"
         aria-label="YouTube"
       >
