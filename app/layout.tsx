@@ -1,7 +1,7 @@
 
 import Link from "next/link"
 import "./globals.css"
-import { Inter } from "next/font/google"
+import { Inter, Geist } from "next/font/google"
 import { ThemeProvider } from "@/components/theme-provider"
 // import { Analytics } from "@/components/analytics"
 import { ModeToggle } from "@/components/mode-toggle"
@@ -15,6 +15,9 @@ import ConvertkitSignupForm from "@/components/ConvertkitSignupForm"
 import Footer from "@/components/footer"
 import Header from "@/components/header"
 import SocialLinks from "@/components/social-links"
+import { cn } from "@/lib/utils";
+
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -31,7 +34,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
 
   // const session = await getServerSession()
   return (
-    <html lang="en">
+    <html lang="en" className={cn("font-sans", geist.variable)}>
       <body
         className={`antialiased min-h-screen bg-slate-200 dark:bg-slate-900 text-slate-900 dark:text-slate-50 ${inter.className}`}
       >
