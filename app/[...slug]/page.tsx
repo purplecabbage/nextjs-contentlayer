@@ -1,7 +1,10 @@
 import { notFound } from "next/navigation"
 import { Metadata } from "next"
 import { Mdx } from "@/components/mdx-components"
-import { getAllPages, getPageBySlug } from "@/lib/data"
+import { getPageBySlug } from "@/lib/data"
+
+// Use dynamic rendering since database may not be available at build time
+export const dynamic = 'force-dynamic'
 
 interface PageProps {
   params: Promise<{
@@ -31,12 +34,7 @@ export async function generateMetadata({
   }
 }
 
-export async function generateStaticParams() {
-  const pages = await getAllPages()
-  return pages.map((page) => ({
-    slug: page.slug.split("/"),
-  }))
-}
+
 
 export default async function PagePage({ params }: PageProps) {
   const page = await getPageFromParams(params)

@@ -2,11 +2,37 @@ import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
 
 export async function createClient() {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY2_SUPABASE_URL
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY2_SUPABASE_ANON_KEY
+
+  if (!supabaseUrl || !supabaseAnonKey) {
+    // Return a mock client that returns empty data
+    return {
+      from: () => ({
+        select: () => ({
+          order: () => ({ data: null, error: { message: 'Supabase not configured' } }),
+          eq: () => ({
+            single: () => ({ data: null, error: { message: 'Supabase not configured' } }),
+            order: () => ({ data: null, error: { message: 'Supabase not configured' } }),
+          }),
+        }),
+        insert: () => ({ data: null, error: { message: 'Supabase not configured' } }),
+        update: () => ({ data: null, error: { message: 'Supabase not configured' } }),
+        delete: () => ({ data: null, error: { message: 'Supabase not configured' } }),
+      }),
+      auth: {
+        getUser: async () => ({ data: { user: null }, error: null }),
+        signInWithPassword: async () => ({ data: { user: null, session: null }, error: { message: 'Supabase not configured' } }),
+        signOut: async () => ({ error: null }),
+      },
+    } as unknown as ReturnType<typeof createServerClient>
+  }
+
   const cookieStore = await cookies()
 
   return createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY2_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY2_SUPABASE_ANON_KEY!,
+    supabaseUrl,
+    supabaseAnonKey,
     {
       cookies: {
         getAll() {

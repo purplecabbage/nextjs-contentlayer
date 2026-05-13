@@ -1,7 +1,9 @@
-import { notFound } from "next/navigation"
 import { Metadata } from "next"
 import { Mdx } from "@/components/mdx-components"
 import { getAllPress, getPressBySlug } from "@/lib/data"
+
+// Use dynamic rendering since database may not be available at build time
+export const dynamic = 'force-dynamic'
 
 interface PressProps {
   params: Promise<{
@@ -31,12 +33,7 @@ export async function generateMetadata({
   }
 }
 
-export async function generateStaticParams() {
-  const pressItems = await getAllPress()
-  return pressItems.map((press) => ({
-    slug: press.slug.split("/"),
-  }))
-}
+
 
 export default async function PressPage({ params }: PressProps) {
   const press = await getPressFromParams(params)

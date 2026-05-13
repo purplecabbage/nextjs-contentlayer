@@ -1,7 +1,10 @@
 import { notFound } from "next/navigation"
 import { Metadata } from "next"
 import StreamLinks from "@/components/StreamLinks"
-import { getAllSongs, getSongBySlug } from "@/lib/data"
+import { getSongBySlug } from "@/lib/data"
+
+// Use dynamic rendering since database may not be available at build time
+export const dynamic = 'force-dynamic'
 
 interface SongProps {
   params: Promise<{
@@ -31,12 +34,7 @@ export async function generateMetadata({
   }
 }
 
-export async function generateStaticParams() {
-  const songs = await getAllSongs()
-  return songs.map((song) => ({
-    slug: song.slug.split("/"),
-  }))
-}
+
 
 export default async function SongPage({ params }: SongProps) {
   const song = await getSongFromParams(params)

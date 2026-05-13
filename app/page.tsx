@@ -1,6 +1,9 @@
 import StreamLinks from "@/components/StreamLinks"
 import { getAllPosts, getPublicSongs } from "@/lib/data"
 
+// Use dynamic rendering since database may not be available at build time
+export const dynamic = 'force-dynamic'
+
 export default async function Home() {
   const songs = await getPublicSongs()
   const posts = await getAllPosts()
