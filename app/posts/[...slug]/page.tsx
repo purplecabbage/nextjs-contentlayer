@@ -1,22 +1,18 @@
 import { notFound } from "next/navigation"
-import { allPosts } from "contentlayer/generated"
-
 import { Metadata } from "next"
 import { Mdx } from "@/components/mdx-components"
+import { getAllPosts, getPostBySlug } from "@/lib/data"
 
 interface PostProps {
-  params: {
+  params: Promise<{
     slug: string[]
-  }
+  }>
 }
 
 async function getPostFromParams(params: PostProps["params"]) {
-  const slug = params?.slug?.join("/")
-  const post = allPosts.find((post) => post.slugAsParams === slug)
-
-  if (!post) {
-    return null
-  }
+  const { slug } = await params
+  const slugString = slug?.join("/")
+  const post = await getPostBySlug(slugString)
   return post
 }
 
@@ -31,22 +27,41 @@ export async function generateMetadata({
 
   return {
     title: post.title,
-    description: post.description,
+    description: post.description || undefined,
   }
 }
 
-export async function generateStaticParams(): Promise<PostProps["params"][]> {
-  return allPosts.map((post) => ({
-    slug: post.slugAsParams.split("/"),
+export async function generateStaticParams() {
+  const posts = await getAllPosts()
+  return posts.map((post) => ({
+    slug: post.slug.split("/"),
   }))
 }
 
 export default async function PostPage({ params }: PostProps) {
   const post = await getPostFromParams(params)
+  
   if (!post) {
-    return allPosts.map((post) => (
-      <p key={post._id}>{post.title}</p>
-    ))
+    // Show list of all posts if no specific post found
+    const allPosts = await getAllPosts()
+    if (allPosts.length === 0) {
+      return (
+        <article className="py-20 prose dark:prose-invert min-w-full px-5 sm:px-20">
+          <h1>Posts</h1>
+          <p>No posts found. Add some content in the admin panel.</p>
+        </article>
+      )
+    }
+    return (
+      <article className="py-20 prose dark:prose-invert min-w-full px-5 sm:px-20">
+        <h1>Posts</h1>
+        {allPosts.map((post) => (
+          <p key={post.id}>
+            <a href={`/posts/${post.slug}`}>{post.title}</a>
+          </p>
+        ))}
+      </article>
+    )
   }
 
   return (
@@ -58,7 +73,7 @@ export default async function PostPage({ params }: PostProps) {
         </p>
       )}
       <hr className="my-4" />
-      <Mdx code={post.body.code} />
+      <Mdx content={post.content} />
     </article>
   )
 }
