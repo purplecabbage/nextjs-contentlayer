@@ -1,0 +1,20 @@
+import Link from "next/link"
+
+export default function AuthErrorPage() {
+  return (
+    <div className="flex min-h-screen items-center justify-center">
+      <div className="text-center">
+        <h1 className="text-2xl font-bold mb-4">Authentication Error</h1>
+        <p className="text-muted-foreground mb-4">
+          There was an error during authentication. Please try again.
+        </p>
+        <Link
+          href="/auth/login"
+          className="text-primary underline hover:no-underline"
+        >
+          Back to Login
+        </Link>
+      </div>
+    </div>
+  )
+}

@@ -1,20 +1,21 @@
-import { notFound } from "next/navigation"
-import { allPresses } from "contentlayer/generated"
-
 import { Metadata } from "next"
 import { Mdx } from "@/components/mdx-components"
+import { getAllPress, getPressBySlug } from "@/lib/data"
+
+// Use dynamic rendering since database may not be available at build time
+export const dynamic = 'force-dynamic'
 
 interface PressProps {
-  params: {
+  params: Promise<{
     slug: string[]
-  }
+  }>
 }
 
 async function getPressFromParams(params: PressProps["params"]) {
-  
-  const slug = params?.slug?.join("/")
-  // console.log('allPresses = ', allPresses.map((press) => press.slugAsParams))
-  return allPresses.find((press) => press.slugAsParams == slug)
+  const { slug } = await params
+  const slugString = slug?.join("/")
+  const press = await getPressBySlug(slugString)
+  return press
 }
 
 export async function generateMetadata({
@@ -28,25 +29,36 @@ export async function generateMetadata({
 
   return {
     title: press.title,
-    description: press.description,
+    description: press.description || undefined,
   }
 }
 
-export async function generateStaticParams(): Promise<PressProps["params"][]> {
-  return allPresses.map((press) => ({
-    slug: press.slugAsParams.split("/"),
-  }))
-}
+
 
 export default async function PressPage({ params }: PressProps) {
-  console.log('params = ', params)
   const press = await getPressFromParams(params)
-  console.log("Post not found ", allPresses.length)
+  
   if (!press) {
-    
-    return allPresses.map((press) => (
-      <p key={press._id}>{press.title}</p>
-    ))
+    // Show list of all press items if no specific one found
+    const allPressItems = await getAllPress()
+    if (allPressItems.length === 0) {
+      return (
+        <article className="py-20 prose dark:prose-invert min-w-full px-5 sm:px-20">
+          <h1>Press</h1>
+          <p>No press items found. Add some content in the admin panel.</p>
+        </article>
+      )
+    }
+    return (
+      <article className="py-20 prose dark:prose-invert min-w-full px-5 sm:px-20">
+        <h1>Press</h1>
+        {allPressItems.map((item) => (
+          <p key={item.id}>
+            <a href={`/press/${item.slug}`}>{item.title}</a>
+          </p>
+        ))}
+      </article>
+    )
   }
 
   return (
@@ -57,7 +69,7 @@ export default async function PressPage({ params }: PressProps) {
           {press.description}
         </p>
       )}
-      <Mdx code={press.body.code} />
+      <Mdx content={press.content} />
     </article>
   )
 }

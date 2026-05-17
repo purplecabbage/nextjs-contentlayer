@@ -1,22 +1,21 @@
 import { notFound } from "next/navigation"
 import { Metadata } from "next"
 import StreamLinks from "@/components/StreamLinks"
-import { allSongs } from "contentlayer/generated"
+import { getSongBySlug } from "@/lib/data"
+
+// Use dynamic rendering since database may not be available at build time
+export const dynamic = 'force-dynamic'
 
 interface SongProps {
-  params: {
+  params: Promise<{
     slug: string[]
-  }
+  }>
 }
 
 async function getSongFromParams(params: SongProps["params"]) {
-  const slug = params?.slug?.join("/")
-  const song = allSongs.find((song) => song.slugAsParams === slug)
-
-  if (!song) {
-    null
-  }
-
+  const { slug } = await params
+  const slugString = slug?.join("/")
+  const song = await getSongBySlug(slugString)
   return song
 }
 
@@ -31,18 +30,13 @@ export async function generateMetadata({
 
   return {
     title: song.title,
-    description: song.description,
+    description: song.description || undefined,
   }
 }
 
-export async function generateStaticParams(): Promise<SongProps["params"][]> {
-  return allSongs.map((song) => ({
-    slug: song.slugAsParams.split("/"),
-  }))
-}
 
-export default async function SongPage({ params }: { params: { slug: string[] } }) {
-  
+
+export default async function SongPage({ params }: SongProps) {
   const song = await getSongFromParams(params)
 
   if (!song) {
@@ -57,14 +51,14 @@ export default async function SongPage({ params }: { params: { slug: string[] } 
           {song.description}
         </p>
       )}
-      <StreamLinks title={song.title}
-        appleMusicLink={song.appleMusicLink}
-        spotifyLink={song.spotifyLink}
-        amazonMusicLink={song.amazonMusicLink}
-        streamUrl={song.streamUrl}
-        discoTrackId={song.discoTrackId}
-        />
-      
+      <StreamLinks 
+        title={song.title}
+        appleMusicLink={song.apple_music_link || undefined}
+        spotifyLink={song.spotify_link || undefined}
+        amazonMusicLink={song.amazon_music_link || undefined}
+        streamUrl={song.stream_url || undefined}
+        discoTrackId={song.disco_track_id || undefined}
+      />
     </article>
   )
 }
