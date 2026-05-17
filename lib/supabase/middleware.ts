@@ -6,11 +6,11 @@ export async function updateSession(request: NextRequest) {
     request,
   })
 
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY2_SUPABASE_URL
+  const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY2_SUPABASE_PUBLISHABLE_KEY
 
   // If Supabase is not configured, just pass through
-  if (!supabaseUrl || !supabaseAnonKey) {
+  if (!supabaseUrl || !supabaseKey) {
     // Still protect admin routes when Supabase is not configured
     if (request.nextUrl.pathname.startsWith('/admin')) {
       const url = request.nextUrl.clone()
@@ -23,7 +23,7 @@ export async function updateSession(request: NextRequest) {
   try {
     const supabase = createServerClient(
       supabaseUrl,
-      supabaseAnonKey,
+      supabaseKey,
       {
         cookies: {
           getAll() {
