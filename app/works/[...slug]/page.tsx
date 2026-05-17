@@ -1,23 +1,18 @@
-'use client';
-
-// import type { PutBlobResult } from '@vercel/blob';
-import MediaPlayer from 'components/MediaPlayer';
-import CommentEntry from 'components/CommentEntry';
-import { useState, useRef } from 'react';
+export const dynamic = 'force-dynamic'
 
 interface WorksProps {
-  params: {
+  params: Promise<{
     slug: string[]
-  }
+  }>
 }
 
-export default async function Works(params: WorksProps["params"]) {
-  const slug = params?.slug?.join("/")
-  console.log('slug is: ', slug)
+export default async function Works({ params }: WorksProps) {
+  const { slug } = await params
+  const slugString = slug?.join("/")
   return (
-    <div>
+    <article className="py-20 prose dark:prose-invert min-w-full px-5 sm:px-20">
       <h1>Works</h1>
-      <CommentEntry/>
-    </div>
+      <p>{slugString}</p>
+    </article>
   );
 }

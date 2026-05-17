@@ -11,6 +11,7 @@ export default async function AdminSongsPage() {
 
   return (
     <div>
+      <Link href="/admin" className="text-sm text-muted-foreground hover:underline mb-6 inline-block">&larr; Back to Admin</Link>
       <div className="flex items-center justify-between mb-8">
         <h1 className="text-3xl font-bold">Songs</h1>
         <Link

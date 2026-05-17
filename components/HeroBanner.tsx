@@ -1,12 +1,11 @@
 'use client'
 import StreamLinks from "@/components/StreamLinks"
-import { allSongs } from "contentlayer/generated"
 import { useEffect, useRef } from 'react'
 import Image from 'next/image'
 
 export default function HeroBanner() {
   const bannerRef = useRef<HTMLDivElement>(null)
-  const song = allSongs.find((song) => song.slugAsParams === 'beside-me')
+  const song = null // TODO: fetch from Supabase if this component is used
 
   useEffect(() => {
     const handleScroll = () => {

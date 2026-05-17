@@ -30,6 +30,7 @@ export function PressForm({ press }: PressFormProps) {
   })
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [confirmDelete, setConfirmDelete] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -67,7 +68,7 @@ export function PressForm({ press }: PressFormProps) {
   }
 
   const handleDelete = async () => {
-    if (!press || !confirm("Are you sure you want to delete this press article?")) return
+    if (!press) return
 
     setLoading(true)
     const { error } = await supabase.from("press").delete().eq("id", press.id)
@@ -164,7 +165,15 @@ export function PressForm({ press }: PressFormProps) {
 
           {error && <p className="text-sm text-red-500">{error}</p>}
 
-          <div className="flex gap-4">
+          <div className="flex gap-4 items-center">
+            <button
+              type="button"
+              onClick={() => router.push("/admin/press")}
+              disabled={loading}
+              className="border py-2 px-4 rounded-md hover:bg-muted disabled:opacity-50"
+            >
+              Back
+            </button>
             <button
               type="submit"
               disabled={loading}
@@ -172,15 +181,36 @@ export function PressForm({ press }: PressFormProps) {
             >
               {loading ? "Saving..." : isEditing ? "Update Article" : "Create Article"}
             </button>
-            {isEditing && (
+            {isEditing && !confirmDelete && (
               <button
                 type="button"
-                onClick={handleDelete}
+                onClick={() => setConfirmDelete(true)}
                 disabled={loading}
                 className="bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600 disabled:opacity-50"
               >
                 Delete
               </button>
+            )}
+            {isEditing && confirmDelete && (
+              <>
+                <span className="text-sm text-red-600 font-medium">Are you sure?</span>
+                <button
+                  type="button"
+                  onClick={handleDelete}
+                  disabled={loading}
+                  className="bg-red-600 text-white py-2 px-4 rounded-md hover:bg-red-700 disabled:opacity-50"
+                >
+                  Yes, delete
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setConfirmDelete(false)}
+                  disabled={loading}
+                  className="border py-2 px-4 rounded-md hover:bg-muted disabled:opacity-50"
+                >
+                  Cancel
+                </button>
+              </>
             )}
           </div>
         </form>
