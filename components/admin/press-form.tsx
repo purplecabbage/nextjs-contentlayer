@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
+import { ImageUpload } from "@/components/admin/ImageUpload"
 import type { Press } from "@/lib/types"
 
 interface PressFormProps {
@@ -142,15 +143,12 @@ export function PressForm({ press }: PressFormProps) {
             />
           </div>
 
+          <ImageUpload
+            value={formData.cover_image}
+            onChange={(url) => setFormData({ ...formData, cover_image: url })}
+          />
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="space-y-2">
-              <Label htmlFor="cover_image">Cover Image URL</Label>
-              <Input
-                id="cover_image"
-                value={formData.cover_image}
-                onChange={(e) => setFormData({ ...formData, cover_image: e.target.value })}
-              />
-            </div>
             <div className="space-y-2">
               <Label htmlFor="published_at">Published At</Label>
               <Input

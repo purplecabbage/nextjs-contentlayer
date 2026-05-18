@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
+import { ImageUpload } from "@/components/admin/ImageUpload"
 import type { Song } from "@/lib/types"
 
 interface SongFormProps {
@@ -22,6 +23,7 @@ export function SongForm({ song }: SongFormProps) {
     title: song?.title ?? "",
     slug: song?.slug ?? "",
     description: song?.description ?? "",
+    cover_image: song?.cover_image ?? "",
     visibility: song?.visibility ?? "private",
     apple_music_link: song?.apple_music_link ?? "",
     spotify_link: song?.spotify_link ?? "",
@@ -133,6 +135,11 @@ export function SongForm({ song }: SongFormProps) {
               rows={2}
             />
           </div>
+
+          <ImageUpload
+            value={formData.cover_image}
+            onChange={(url) => setFormData({ ...formData, cover_image: url })}
+          />
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-2">
