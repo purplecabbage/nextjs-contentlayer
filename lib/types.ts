@@ -25,6 +25,7 @@ export interface Song {
   slug: string
   title: string
   description: string | null
+  cover_image: string | null
   published_at: string
   visibility: 'private' | 'protected' | 'public'
   apple_music_link: string | null
